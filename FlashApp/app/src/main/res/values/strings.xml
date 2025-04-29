@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">FlashApp</string>
+
+    <!-- Icon Descriptions -->
+    <string name="ic_home">Home icon</string>
+    <string name="ic_trophy">Trophy icon</string>
+    <string name="ic_graph_placeholder">Graph placeholder</string>
+    <string name="ic_list">Categories icon</string>
+    <string name="ic_coins">Expenses icon</string>
+    <string name="ic_report">Report icon</string>
+
+    <!-- Labels -->
+    <string name="dashboard_title">DASHBOARD</string>
+    <string name="balance_label">BALANCE</string>
+    <string name="recent_transactions">RECENT TRANSACTIONS</string>
+    <string name="view_all">VIEW ALL</string>
+
+    <!-- Buttons -->
+    <string name="weekly">WEEKLY</string>
+    <string name="monthly">MONTHLY</string>
+    <string name="yearly">YEARLY</string>
+
+    <!-- Transaction Text -->
+    <string name="transaction1">- R 100,00\nFOOD</string>
+    <string name="transaction2">- R 1200,00\nFUEL</string>
+
+    <!-- Bottom Navigation Labels -->
+    <string name="categories">CATEGORIES</string>
+    <string name="expenses">EXPENSES</string>
+    <string name="report">REPORT</string>
+</resources>
