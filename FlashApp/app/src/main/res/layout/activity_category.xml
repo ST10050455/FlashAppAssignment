@@ -1,246 +1,259 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:padding="24dp"
+    android:clipToPadding="false"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true"
     tools:context=".CategoryActivity">
 
-    <ImageView
-        android:id="@+id/home_btn_cate"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="56dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_home" />
-
-    <TextView
-        android:id="@+id/cate_heading"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="100dp"
-        android:fontFamily="monospace"
-        android:text="ADD NEW CATEGORY"
-        android:textAlignment="center"
-        android:textColor="#121010"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
 
-    <EditText
-        android:id="@+id/cate_name"
-        android:layout_width="353dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/purple_button_border"
-        android:ems="10"
-        android:fontFamily="monospace"
-        android:hint=" CATEGORY NAME"
-        android:inputType="text"
-        android:paddingStart="10sp"
-        android:textAlignment="textStart"
-        android:textColor="@color/DarkViolet"
-        android:textColorHint="@color/DarkViolet"
-        android:textSize="14sp"
-        app:iconTint="@color/DarkViolet"
-        app:layout_constraintStart_toStartOf="@+id/category_lbl"
-        app:layout_constraintTop_toBottomOf="@+id/category_lbl" />
+        <!-- Header -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="#FAFAFA"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp">
 
-    <TextView
-        android:id="@+id/category_lbl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
-        android:fontFamily="monospace"
-        android:letterSpacing="0.3"
-        android:text="CATEGORY NAME"
-        android:textAlignment="textStart"
-        android:textColor="@color/DarkViolet"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cate_heading" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="12dp">
 
-    <EditText
-        android:id="@+id/cate_description"
-        android:layout_width="353dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/purple_button_border"
-        android:ems="10"
-        android:fontFamily="monospace"
-        android:hint=" DESCRIPTION"
-        android:inputType="text"
-        android:paddingStart="10sp"
-        android:textAlignment="textStart"
-        android:textColor="@color/DarkViolet"
-        android:textColorHint="@color/DarkViolet"
-        android:textSize="14sp"
-        app:iconTint="@color/DarkViolet"
-        app:layout_constraintStart_toStartOf="@+id/description_lbl"
-        app:layout_constraintTop_toBottomOf="@+id/description_lbl" />
+                <ImageView
+                    android:id="@+id/homeIcon"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:src="@drawable/ic_home"
+                    android:contentDescription="Back to Dashboard"
+                    android:padding="4dp"
+                    android:clickable="true"
+                    android:focusable="true" />
 
-    <TextView
-        android:id="@+id/description_lbl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="monospace"
-        android:letterSpacing="0.3"
-        android:text="DESCRIPTION"
-        android:textAlignment="textStart"
-        android:textColor="@color/DarkViolet"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cate_name" />
+                <TextView
+                    android:id="@+id/cate_heading"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="ADD NEW CATEGORY"
+                    android:textColor="#121010"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:fontFamily="monospace"
+                    android:gravity="center"
+                    android:layout_marginStart="-28dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-    <EditText
-        android:id="@+id/cate_limit"
-        android:layout_width="353dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/orange_button_border"
-        android:ems="10"
-        android:fontFamily="monospace"
-        android:hint=" LIMIT"
-        android:inputType="number"
-        android:paddingStart="10sp"
-        android:textAlignment="textStart"
-        android:textColor="@color/DarkOrange"
-        android:textColorHint="@color/DarkOrange"
-        android:textSize="14sp"
-        app:iconTint="@color/DarkOrange"
-        app:layout_constraintStart_toStartOf="@+id/limit_lbl"
-        app:layout_constraintTop_toBottomOf="@+id/limit_lbl" />
+        <!-- Toggle Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CATEGORY TYPE"
+            android:textColor="@color/DarkViolet"
+            android:letterSpacing="0.3"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="monospace" />
 
-    <TextView
-        android:id="@+id/limit_lbl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="monospace"
-        android:letterSpacing="0.3"
-        android:text="LIMIT"
-        android:textAlignment="textStart"
-        android:textColor="@color/DarkOrange"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cate_description" />
+        <ToggleButton
+            android:id="@+id/toggle_type"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:textOff="EXPENSE"
+            android:textOn="INCOME"
+            android:fontFamily="monospace"
+            android:background="@drawable/filled_purple_btn"
+            android:textColor="@color/white"
+            android:layout_marginBottom="24dp" />
 
-    <TextView
-        android:id="@+id/icon_lbl"
-        android:layout_width="wrap_content"
-        android:layout_height="19dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="monospace"
-        android:letterSpacing="0.3"
-        android:text="CHOOSE ICON"
-        android:textAlignment="textStart"
-        android:textColor="@color/DarkViolet"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cate_limit" />
+        <!-- CATEGORY NAME -->
+        <TextView
+            android:id="@+id/category_lbl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:letterSpacing="0.3"
+            android:text="CATEGORY NAME"
+            android:textColor="@color/DarkViolet"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
 
-    <Button
-        android:id="@+id/cate_save_btn"
-        android:layout_width="136dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="302dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/filled_purple_btn"
-        android:cursorVisible="true"
-        android:fontFamily="monospace"
-        android:text="SAVE"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/cate_cancel_btn"
-        app:layout_constraintTop_toBottomOf="@+id/cate_limit" />
+        <EditText
+            android:id="@+id/cate_name"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:background="@drawable/purple_button_border"
+            android:fontFamily="monospace"
+            android:hint=" CATEGORY NAME"
+            android:inputType="text"
+            android:paddingStart="10dp"
+            android:textColor="@color/DarkViolet"
+            android:textColorHint="@color/DarkViolet"
+            android:textSize="14sp"
+            android:layout_marginBottom="24dp" />
 
-    <Button
-        android:id="@+id/cate_cancel_btn"
-        android:layout_width="136dp"
-        android:layout_height="44dp"
-        android:layout_marginEnd="52dp"
-        android:background="@drawable/orange_button_border"
-        android:fontFamily="monospace"
-        android:text="CANCEL"
-        android:textColor="@color/DarkViolet"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/cate_save_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/cate_save_btn"
-        app:layout_constraintVertical_bias="0.0" />
+        <!-- DESCRIPTION -->
+        <TextView
+            android:id="@+id/description_lbl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:letterSpacing="0.3"
+            android:text="DESCRIPTION"
+            android:textColor="@color/DarkViolet"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="62dp"
-        android:layout_height="58dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/icon_lbl"
-        app:srcCompat="@drawable/bulb" />
+        <EditText
+            android:id="@+id/cate_description"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:background="@drawable/purple_button_border"
+            android:fontFamily="monospace"
+            android:hint=" DESCRIPTION"
+            android:inputType="text"
+            android:paddingStart="10dp"
+            android:textColor="@color/DarkViolet"
+            android:textColorHint="@color/DarkViolet"
+            android:textSize="14sp"
+            android:layout_marginBottom="24dp" />
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="62dp"
-        android:layout_height="58dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView6"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/icon_lbl"
-        app:srcCompat="@drawable/gasstation" />
+        <!-- LIMIT -->
+        <TextView
+            android:id="@+id/limit_lbl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:letterSpacing="0.3"
+            android:text="LIMIT"
+            android:textColor="@color/DarkOrange"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
 
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="62dp"
-        android:layout_height="58dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView7"
-        app:layout_constraintStart_toEndOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/cate_limit"
-        app:srcCompat="@drawable/deliveryman" />
+        <EditText
+            android:id="@+id/cate_limit"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:background="@drawable/orange_button_border"
+            android:fontFamily="monospace"
+            android:hint=" LIMIT"
+            android:inputType="number"
+            android:paddingStart="10dp"
+            android:textColor="@color/DarkOrange"
+            android:textColorHint="@color/DarkOrange"
+            android:textSize="14sp"
+            android:layout_marginBottom="24dp" />
 
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="62dp"
-        android:layout_height="58dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="46dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView8"
-        app:layout_constraintStart_toEndOf="@+id/imageView6"
-        app:layout_constraintTop_toBottomOf="@+id/cate_limit"
-        app:srcCompat="@drawable/plane" />
+        <!-- ICON LABEL -->
+        <TextView
+            android:id="@+id/icon_lbl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:letterSpacing="0.3"
+            android:text="CHOOSE ICON"
+            android:textColor="@color/DarkViolet"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp" />
 
-    <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="62dp"
-        android:layout_height="58dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="46dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView7"
-        app:layout_constraintTop_toBottomOf="@+id/cate_limit"
-        app:srcCompat="@drawable/grocery" />
+        <!-- ICONS ROW -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="24dp">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/bulb"
+                android:background="@drawable/purple_button_border"
+                android:padding="6dp" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/gasstation"
+                android:background="@drawable/purple_button_border"
+                android:padding="6dp"
+                android:layout_marginStart="8dp" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/deliveryman"
+                android:background="@drawable/purple_button_border"
+                android:padding="6dp"
+                android:layout_marginStart="8dp" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/plane"
+                android:background="@drawable/purple_button_border"
+                android:padding="6dp"
+                android:layout_marginStart="8dp" />
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/grocery"
+                android:background="@drawable/purple_button_border"
+                android:padding="6dp"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+
+        <!-- BUTTONS -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="12dp">
+
+            <!-- SAVE BUTTON -->
+            <Button
+                android:id="@+id/cate_save_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/purple_button_border"
+                android:text="Save"
+                android:textColor="@color/BlueViolet"
+                android:textStyle="bold"
+                android:fontFamily="monospace"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp" />
+        </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+</ScrollView>

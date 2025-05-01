@@ -6,12 +6,13 @@ import androidx.room.Query
 
 @Dao
 interface UserDao {
+
     @Insert
     fun insert(userentity: UserEntity)
 
-    @Query("SELECT * FROM UserEntity WHERE username = :username AND password = :password")
+    @Query("SELECT * FROM users WHERE username = :username AND password = :password")
     fun findUser(username: String, password: String): UserEntity?
 
-    @Query("SELECT * FROM UserEntity WHERE username = :username")
+    @Query("SELECT * FROM users WHERE username = :username")
     fun findUserByName(username: String): UserEntity?
 }

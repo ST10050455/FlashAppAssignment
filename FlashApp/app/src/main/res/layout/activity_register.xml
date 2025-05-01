@@ -24,7 +24,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.196"
+        app:layout_constraintVertical_bias="0.199"
         app:shapeAppearanceOverlay="@style/RoundedImage"
         app:srcCompat="@drawable/regbg" />
 
@@ -48,32 +48,29 @@
         android:id="@+id/alrReg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="92dp"
         android:fontFamily="monospace"
         android:text="Already Registered?"
         android:textColorHighlight="#000000"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/createAcc_lbl"
-        app:layout_constraintHorizontal_bias="0.206"
-        app:layout_constraintStart_toStartOf="@+id/createAcc_lbl"
-        app:layout_constraintTop_toBottomOf="@+id/createAcc_lbl" />
+        app:layout_constraintBottom_toBottomOf="@+id/alrLogin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/alrLogin"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/alrLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="monospace"
         android:text="Login"
         android:textColor="@color/DarkOrange"
         android:textSize="16sp"
         android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="@+id/alrReg"
         app:layout_constraintStart_toEndOf="@+id/alrReg"
-        app:layout_constraintTop_toTopOf="@+id/alrReg"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/createAcc_lbl" />
 
     <EditText
         android:id="@+id/name_input"
@@ -83,7 +80,7 @@
         android:background="@drawable/orange_button_border"
         android:ems="10"
         android:fontFamily="monospace"
-        android:hint=" NAME"
+        android:hint=" NAME AND SURNAME"
         android:inputType="text"
         android:paddingStart="10sp"
         android:textAlignment="textStart"
@@ -102,7 +99,7 @@
         android:layout_marginTop="48dp"
         android:fontFamily="monospace"
         android:letterSpacing="0.3"
-        android:text=" NAME"
+        android:text=" NAME AND SURNAME"
         android:textAlignment="textStart"
         android:textColor="@color/DarkOrange"
         android:textSize="14sp"

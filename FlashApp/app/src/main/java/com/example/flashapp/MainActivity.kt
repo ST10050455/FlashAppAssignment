@@ -11,25 +11,21 @@ import java.util.concurrent.Executors
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var db: AppDatabase
     private val executor = Executors.newSingleThreadExecutor()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen() // Important: call this first
+        installSplashScreen()
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        db = AppDatabase.getDatabase(this)
 
         binding.loginBtn.setOnClickListener {
             validateAndLogin()
         }
 
         binding.registerBtn.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
     }
 
@@ -37,21 +33,18 @@ class MainActivity : AppCompatActivity() {
         val username = binding.usernameLogin.text.toString().trim()
         val password = binding.passwordLogin.text.toString().trim()
 
-        binding.usernameLogin.error = null
-        binding.passwordLogin.error = null
-
         if (username.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Please Enter Username and Password", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Please enter both email and password", Toast.LENGTH_SHORT).show()
             return
         }
 
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(username).matches()) {
-            Toast.makeText(this, "Invalid Email Format", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Invalid email format", Toast.LENGTH_SHORT).show()
             return
         }
 
         if (password.length < 6) {
-            Toast.makeText(this, "Password must be at least 6 Characters", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -60,15 +53,23 @@ class MainActivity : AppCompatActivity() {
 
     private fun performLogin(username: String, password: String) {
         executor.execute {
-            val user = db.userDao().findUser(username, password)
-            runOnUiThread {
-                if (user != null) {
-                    Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this@MainActivity, DashboardActivity::class.java)
-                    intent.putExtra("username", user.username)
-                    startActivity(intent)
-                } else {
-                    Toast.makeText(this, "Login Failed!", Toast.LENGTH_SHORT).show()
+            try {
+                val db = AppDatabase.getDatabase(this)
+                val user = db.userDao().findUser(username, password)
+                runOnUiThread {
+                    if (user != null) {
+                        Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, DashboardActivity::class.java)
+                        intent.putExtra("username", user.username)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        Toast.makeText(this, "Login failed: incorrect credentials", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } catch (e: Exception) {
+                runOnUiThread {
+                    Toast.makeText(this, "Login error: ${e.message}", Toast.LENGTH_LONG).show()
                 }
             }
         }

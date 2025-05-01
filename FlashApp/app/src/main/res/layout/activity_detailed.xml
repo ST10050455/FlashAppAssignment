@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:padding="24dp"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Header Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="#FAFAFA"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="12dp">
+
+                <ImageButton
+                    android:id="@+id/closeBtn"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:src="@android:drawable/ic_menu_close_clear_cancel"
+                    android:contentDescription="Close"
+                    android:background="@android:color/transparent"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <TextView
+                    android:id="@+id/detailed_heading"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="EDIT CATEGORY"
+                    android:textColor="#121010"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:fontFamily="monospace"
+                    android:gravity="center"
+                    android:layout_marginStart="-28dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Icon Preview -->
+        <ImageView
+            android:id="@+id/icon_preview_detailed"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="24dp"
+            android:src="@drawable/bulb"
+            android:background="@drawable/purple_button_border"
+            android:padding="6dp"
+            android:contentDescription="Category Icon" />
+
+        <!-- CATEGORY NAME -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CATEGORY NAME"
+            android:textColor="@color/DarkViolet"
+            android:letterSpacing="0.3"
+            android:textSize="14sp"
+            android:textStyle="bold"
+             android:fontFamily="monospace"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/labelInput"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:hint=" CATEGORY NAME"
+            android:background="@drawable/purple_button_border"
+            android:fontFamily="monospace"
+            android:textColor="@color/DarkViolet"
+            android:textColorHint="@color/DarkViolet"
+            android:inputType="text"
+            android:paddingStart="10dp"
+            android:textSize="14sp"
+            android:layout_marginBottom="24dp" />
+
+        <!-- DESCRIPTION -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DESCRIPTION"
+            android:textColor="@color/DarkViolet"
+            android:letterSpacing="0.3"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:fontFamily="monospace"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/descriptionInput"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:hint=" DESCRIPTION"
+            android:background="@drawable/purple_button_border"
+            android:fontFamily="monospace"
+            android:textColor="@color/DarkViolet"
+            android:textColorHint="@color/DarkViolet"
+            android:inputType="text"
+            android:paddingStart="10dp"
+            android:textSize="14sp"
+            android:layout_marginBottom="24dp" />
+
+        <!-- LIMIT -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LIMIT"
+            android:textColor="@color/DarkOrange"
+            android:letterSpacing="0.3"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:fontFamily="monospace"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/amountInput"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:hint=" LIMIT"
+            android:background="@drawable/orange_button_border"
+            android:fontFamily="monospace"
+            android:textColor="@color/DarkOrange"
+            android:textColorHint="@color/DarkOrange"
+            android:inputType="numberDecimal"
+            android:paddingStart="10dp"
+            android:textSize="14sp"
+            android:layout_marginBottom="24dp" />
+
+        <!-- TOGGLE -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TYPE"
+            android:textColor="@color/DarkViolet"
+            android:letterSpacing="0.3"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:fontFamily="monospace"
+            android:layout_marginBottom="8dp" />
+
+        <ToggleButton
+            android:id="@+id/toggle_type_detailed"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:background="@drawable/filled_purple_btn"
+            android:textOn="INCOME"
+            android:textOff="EXPENSE"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:fontFamily="monospace"
+            android:layout_marginBottom="24dp" />
+
+        <!-- UPDATE BUTTON -->
+        <Button
+            android:id="@+id/updateBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="UPDATE"
+            android:textColor="@color/BlueViolet"
+            android:textStyle="bold"
+            android:fontFamily="monospace"
+            android:background="@drawable/purple_button_border"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp" />
+
+    </LinearLayout>
+</ScrollView>

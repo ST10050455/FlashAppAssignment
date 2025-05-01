@@ -13,6 +13,21 @@
         android:theme="@style/Theme.FlashApp"
         tools:targetApi="31">
         <activity
+            android:name=".ReportActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CategoryListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ViewAllExpensesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddExpenseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailedActivity"
+            android:exported="false" />
+        <activity
             android:name=".CategoryActivity"
             android:exported="false" />
         <activity
