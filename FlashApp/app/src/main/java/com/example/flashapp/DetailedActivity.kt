@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 
 class DetailedActivity : AppCompatActivity() {
 
+    // Declare UI components and category object
     private lateinit var category: Category
     private lateinit var labelInput: EditText
     private lateinit var descriptionInput: EditText
@@ -24,8 +25,10 @@ class DetailedActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detailed)
 
+        // Retrieve the category passed from the previous activity
         category = intent.getSerializableExtra("category") as Category
 
+        // Initialize UI components
         labelInput = findViewById(R.id.labelInput)
         amountInput = findViewById(R.id.amountInput)
         descriptionInput = findViewById(R.id.descriptionInput)
@@ -34,55 +37,62 @@ class DetailedActivity : AppCompatActivity() {
         toggleType = findViewById(R.id.toggle_type_detailed)
         iconPreview = findViewById(R.id.icon_preview_detailed)
 
+        // Fill in existing category data into input fields
         labelInput.setText(category.name)
         amountInput.setText(category.limit.toString())
         descriptionInput.setText(category.description)
 
-        // Set the toggle state based on the category type
+        // Set toggle button based on category type (income or expense)
         toggleType.isChecked = category.type == "INCOME"
 
-        // Display the current icon
+        // Show current icon
         iconPreview.setImageResource(category.iconResId)
 
+        // Handle update button click
         updateBtn.setOnClickListener {
             val name = labelInput.text.toString()
             val description = descriptionInput.text.toString()
             val limit = amountInput.text.toString().toDoubleOrNull()
             val type = if (toggleType.isChecked) "INCOME" else "EXPENSE"
 
+            // Validate inputs
             if (name.isEmpty()) {
                 labelInput.error = "Enter a valid name"
             } else if (limit == null) {
                 amountInput.error = "Enter a valid limit"
             } else {
+                // Create updated category object
                 val updatedCategory = Category(
                     id = category.id,
                     name = name,
                     description = description,
                     limit = limit,
                     type = type,
-                    iconResId = category.iconResId // Keep the existing icon for now
+                    iconResId = category.iconResId
                 )
+
+                // Save updated category to database
                 update(updatedCategory)
             }
         }
 
+        // Handle close button click
         closeBtn.setOnClickListener {
-            finish()
+            finish() // Close the activity
         }
     }
 
+    // Update category in the database
     private fun update(category: Category) {
         val db = AppDatabase.getDatabase(this)
         GlobalScope.launch {
-            // Update the category in the database
             db.categoryDao().update(category)
 
-            // Notify CategoryListActivity to refresh the displayed data
+            // Return to previous activity and signal refresh
             runOnUiThread {
-                // Call this to finish the activity and refresh the list in CategoryListActivity
                 setResult(RESULT_OK)
                 finish()
             }
         }
-    }}
+    }
+}

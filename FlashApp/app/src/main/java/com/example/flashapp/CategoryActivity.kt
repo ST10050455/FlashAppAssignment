@@ -10,12 +10,11 @@ import kotlinx.coroutines.launch
 
 class CategoryActivity : AppCompatActivity() {
 
-
+    // UI components
     private lateinit var labelInput: EditText
     private lateinit var descriptionInput: EditText
     private lateinit var amountInput: EditText
     private lateinit var addTransactionBtn: Button
-    private lateinit var closeBtn: Button
     private lateinit var toggleType: ToggleButton
     private lateinit var iconBulb: ImageView
     private lateinit var iconGasStation: ImageView
@@ -23,14 +22,15 @@ class CategoryActivity : AppCompatActivity() {
     private lateinit var iconPlane: ImageView
     private lateinit var iconGrocery: ImageView
 
+    // Selected values
     private var selectedIcon: Int? = null
-    private var categoryType: String = "EXPENSE" // Default value
+    private var categoryType: String = "EXPENSE" // Default to "EXPENSE"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
 
-
+        // Initialize views
         labelInput = findViewById(R.id.cate_name)
         descriptionInput = findViewById(R.id.cate_description)
         amountInput = findViewById(R.id.cate_limit)
@@ -42,6 +42,7 @@ class CategoryActivity : AppCompatActivity() {
         iconPlane = findViewById(R.id.imageView7)
         iconGrocery = findViewById(R.id.imageView8)
 
+        // Remove error when user types
         labelInput.addTextChangedListener {
             labelInput.error = null
         }
@@ -50,13 +51,14 @@ class CategoryActivity : AppCompatActivity() {
             amountInput.error = null
         }
 
+        // Toggle between INCOME and EXPENSE
         toggleType.setOnCheckedChangeListener { _, isChecked ->
             categoryType = if (isChecked) "INCOME" else "EXPENSE"
         }
 
+        // Handle icon selection with feedback
         iconBulb.setOnClickListener {
             selectedIcon = R.drawable.bulb
-            // Optionally provide visual feedback that this icon is selected
             updateIconSelection(R.id.imageView3)
         }
 
@@ -80,11 +82,13 @@ class CategoryActivity : AppCompatActivity() {
             updateIconSelection(R.id.imageView8)
         }
 
+        // Handle save button click
         addTransactionBtn.setOnClickListener {
             val name = labelInput.text.toString()
             val description = descriptionInput.text.toString()
             val limit = amountInput.text.toString().toDoubleOrNull()
 
+            // Validate inputs
             if (name.isEmpty()) {
                 labelInput.error = "Please enter a valid name"
             } else if (limit == null) {
@@ -92,6 +96,7 @@ class CategoryActivity : AppCompatActivity() {
             } else if (selectedIcon == null) {
                 Toast.makeText(this, "Please choose an icon", Toast.LENGTH_SHORT).show()
             } else {
+                // Create and save category
                 val category = Category(
                     name = name,
                     description = description,
@@ -103,6 +108,7 @@ class CategoryActivity : AppCompatActivity() {
             }
         }
 
+        // Navigate back to dashboard
         val homeIcon = findViewById<ImageView>(R.id.homeIcon)
         homeIcon.setOnClickListener {
             val intent = Intent(this, DashboardActivity::class.java)
@@ -111,15 +117,15 @@ class CategoryActivity : AppCompatActivity() {
         }
     }
 
+    // Highlight selected icon and reset others
     private fun updateIconSelection(selectedId: Int) {
-        // Reset visual feedback for all icons
         iconBulb.alpha = 0.5f
         iconGasStation.alpha = 0.5f
         iconDeliveryMan.alpha = 0.5f
         iconPlane.alpha = 0.5f
         iconGrocery.alpha = 0.5f
 
-        // Highlight the selected icon
+        // Set selected icon to full opacity
         when (selectedId) {
             R.id.imageView3 -> iconBulb.alpha = 1.0f
             R.id.imageView5 -> iconGasStation.alpha = 1.0f
@@ -129,11 +135,16 @@ class CategoryActivity : AppCompatActivity() {
         }
     }
 
+    // Insert category into database
     private fun insert(category: Category) {
         val db = AppDatabase.getDatabase(this)
         GlobalScope.launch {
             db.categoryDao().insertAll(category)
-            runOnUiThread { finish() }
+
+            // Close the activity on UI thread after saving
+            runOnUiThread {
+                finish()
+            }
         }
     }
 }

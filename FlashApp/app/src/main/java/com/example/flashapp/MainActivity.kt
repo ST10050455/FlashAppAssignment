@@ -24,6 +24,10 @@ class MainActivity : AppCompatActivity() {
             validateAndLogin()
         }
 
+        binding.forgotpassBtn.setOnClickListener {
+            startActivity(Intent(this, ForgotPasswordActivity::class.java))
+        }
+
         binding.registerBtn.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
