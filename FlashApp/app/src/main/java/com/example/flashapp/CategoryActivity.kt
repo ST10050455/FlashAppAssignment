@@ -5,12 +5,11 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
-import kotlinx.coroutines.GlobalScope
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 
 class CategoryActivity : AppCompatActivity() {
 
-    // UI components
     private lateinit var labelInput: EditText
     private lateinit var descriptionInput: EditText
     private lateinit var amountInput: EditText
@@ -22,15 +21,13 @@ class CategoryActivity : AppCompatActivity() {
     private lateinit var iconPlane: ImageView
     private lateinit var iconGrocery: ImageView
 
-    // Selected values
     private var selectedIcon: Int? = null
-    private var categoryType: String = "EXPENSE" // Default to "EXPENSE"
+    private var categoryType: String = "EXPENSE" // Default
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
 
-        // Initialize views
         labelInput = findViewById(R.id.cate_name)
         descriptionInput = findViewById(R.id.cate_description)
         amountInput = findViewById(R.id.cate_limit)
@@ -42,82 +39,33 @@ class CategoryActivity : AppCompatActivity() {
         iconPlane = findViewById(R.id.imageView7)
         iconGrocery = findViewById(R.id.imageView8)
 
-        // Remove error when user types
-        labelInput.addTextChangedListener {
-            labelInput.error = null
-        }
+        labelInput.addTextChangedListener { labelInput.error = null }
+        amountInput.addTextChangedListener { amountInput.error = null }
 
-        amountInput.addTextChangedListener {
-            amountInput.error = null
-        }
-
-        // Toggle between INCOME and EXPENSE
         toggleType.setOnCheckedChangeListener { _, isChecked ->
             categoryType = if (isChecked) "INCOME" else "EXPENSE"
         }
 
-        // Handle icon selection with feedback
-        iconBulb.setOnClickListener {
-            selectedIcon = R.drawable.bulb
-            updateIconSelection(R.id.imageView3)
-        }
+        // Icon click handlers
+        iconBulb.setOnClickListener { selectIcon(R.drawable.bulb, R.id.imageView3) }
+        iconGasStation.setOnClickListener { selectIcon(R.drawable.gasstation, R.id.imageView5) }
+        iconDeliveryMan.setOnClickListener { selectIcon(R.drawable.deliveryman, R.id.imageView6) }
+        iconPlane.setOnClickListener { selectIcon(R.drawable.plane, R.id.imageView7) }
+        iconGrocery.setOnClickListener { selectIcon(R.drawable.grocery, R.id.imageView8) }
 
-        iconGasStation.setOnClickListener {
-            selectedIcon = R.drawable.gasstation
-            updateIconSelection(R.id.imageView5)
-        }
+        addTransactionBtn.setOnClickListener { saveCategory() }
 
-        iconDeliveryMan.setOnClickListener {
-            selectedIcon = R.drawable.deliveryman
-            updateIconSelection(R.id.imageView6)
-        }
-
-        iconPlane.setOnClickListener {
-            selectedIcon = R.drawable.plane
-            updateIconSelection(R.id.imageView7)
-        }
-
-        iconGrocery.setOnClickListener {
-            selectedIcon = R.drawable.grocery
-            updateIconSelection(R.id.imageView8)
-        }
-
-        // Handle save button click
-        addTransactionBtn.setOnClickListener {
-            val name = labelInput.text.toString()
-            val description = descriptionInput.text.toString()
-            val limit = amountInput.text.toString().toDoubleOrNull()
-
-            // Validate inputs
-            if (name.isEmpty()) {
-                labelInput.error = "Please enter a valid name"
-            } else if (limit == null) {
-                amountInput.error = "Please enter a valid limit"
-            } else if (selectedIcon == null) {
-                Toast.makeText(this, "Please choose an icon", Toast.LENGTH_SHORT).show()
-            } else {
-                // Create and save category
-                val category = Category(
-                    name = name,
-                    description = description,
-                    limit = limit,
-                    type = categoryType,
-                    iconResId = selectedIcon!!
-                )
-                insert(category)
-            }
-        }
-
-        // Navigate back to dashboard
-        val homeIcon = findViewById<ImageView>(R.id.homeIcon)
-        homeIcon.setOnClickListener {
-            val intent = Intent(this, DashboardActivity::class.java)
-            startActivity(intent)
+        findViewById<ImageView>(R.id.homeIcon).setOnClickListener {
+            startActivity(Intent(this, DashboardActivity::class.java))
             finish()
         }
     }
 
-    // Highlight selected icon and reset others
+    private fun selectIcon(resId: Int, viewId: Int) {
+        selectedIcon = resId
+        updateIconSelection(viewId)
+    }
+
     private fun updateIconSelection(selectedId: Int) {
         iconBulb.alpha = 0.5f
         iconGasStation.alpha = 0.5f
@@ -125,7 +73,6 @@ class CategoryActivity : AppCompatActivity() {
         iconPlane.alpha = 0.5f
         iconGrocery.alpha = 0.5f
 
-        // Set selected icon to full opacity
         when (selectedId) {
             R.id.imageView3 -> iconBulb.alpha = 1.0f
             R.id.imageView5 -> iconGasStation.alpha = 1.0f
@@ -135,16 +82,39 @@ class CategoryActivity : AppCompatActivity() {
         }
     }
 
-    // Insert category into database
-    private fun insert(category: Category) {
-        val db = AppDatabase.getDatabase(this)
-        GlobalScope.launch {
-            db.categoryDao().insertAll(category)
+    private fun saveCategory() {
+        val name = labelInput.text.toString().trim()
+        val description = descriptionInput.text.toString().trim()
+        val limit = amountInput.text.toString().toDoubleOrNull()
 
-            // Close the activity on UI thread after saving
-            runOnUiThread {
-                finish()
-            }
+        if (name.isEmpty()) {
+            labelInput.error = "Please enter a valid name"
+            return
+        }
+
+        if (limit == null) {
+            amountInput.error = "Please enter a valid limit"
+            return
+        }
+
+        if (selectedIcon == null) {
+            Toast.makeText(this, "Please choose an icon", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val category = Category(
+            name = name,
+            description = description,
+            limit = limit,
+            type = categoryType,
+            iconResId = selectedIcon!!
+        )
+
+        val db = AppDatabase.getDatabase(this)
+        lifecycleScope.launch {
+            db.categoryDao().insertAll(category)
+            Toast.makeText(this@CategoryActivity, "Category saved!", Toast.LENGTH_SHORT).show()
+            finish()
         }
     }
 }

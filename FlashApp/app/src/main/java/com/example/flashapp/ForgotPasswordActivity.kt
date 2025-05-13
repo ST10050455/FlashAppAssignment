@@ -8,32 +8,30 @@ import kotlinx.coroutines.*
 
 class ForgotPasswordActivity : AppCompatActivity() {
 
-    // Declare UI components
     private lateinit var usernameInput: EditText
     private lateinit var recoverButton: Button
     private lateinit var resultText: TextView
+    private lateinit var backToLoginBtn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgot_password)
 
-        // Initialize views
         usernameInput = findViewById(R.id.username_input)
         recoverButton = findViewById(R.id.recover_btn)
         resultText = findViewById(R.id.result_text)
 
-        // Navigate back to login screen when home icon is clicked
+        // Go back to login
         val homeIcon = findViewById<ImageView>(R.id.homeIcon)
         homeIcon.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
 
-        // When recover button is clicked
+        // Handle password recovery
         recoverButton.setOnClickListener {
             val username = usernameInput.text.toString().trim()
 
-            // Check if username field is empty
             if (username.isEmpty()) {
                 Toast.makeText(this, "Please enter your username!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -41,14 +39,11 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
             val db = AppDatabase.getDatabase(this)
 
-            // Launch a coroutine to query the database
+            // Run DB query in background
             CoroutineScope(Dispatchers.IO).launch {
                 val user = db.userDao().findUserByName(username)
-
-                // Switch back to the main thread to update UI
                 withContext(Dispatchers.Main) {
                     if (user != null) {
-                        // Display the user's password (not secure for real apps!)
                         resultText.text = "Your Password is: ${user.password}"
                     } else {
                         resultText.text = "No user found with that username!"
